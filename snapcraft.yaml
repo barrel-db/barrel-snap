@@ -1,0 +1,42 @@
+name: barreldb
+version: 2.0
+summary: TODO
+description: TODO
+confinement: strict
+grade: stable
+
+apps:
+    server:
+        daemon: simple
+        command: snap_run start
+        plugs: [network-bind, browser-support, mount-observe]
+    barreldb:
+        command: snap_run
+        plugs: [network-bind, browser-support, mount-observe]
+parts:
+    barreldb: 
+        plugin: dump
+        #source: https://github.com/barrel-db/platform/releases/download/0.6.0/barrel-0.6.0-ubuntu64.tar.gz
+        source: ./barrel-0.6.0-ubuntu64.tar.gz
+
+
+    launcher: 
+        plugin: dump
+        source: .
+        organize:
+            snap_run: bin/snap_run
+        stage:
+            - bin/snap_run
+        snap:
+            - bin/snap_run
+
+    od:
+        plugin: nil
+        stage-packages:
+            - coreutils
+        organize:
+            usr/bin/od: bin/od
+        stage:
+            - bin/od
+        snap:
+            - bin/od

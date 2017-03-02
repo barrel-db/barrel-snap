@@ -1,0 +1,11 @@
+#!/bin/sh
+
+export HOME=$SNAP_DATA
+
+export RUNNER_LOG_DIR=$SNAP_DATA/log
+if [ ! -e ${SNAP_DATA}/log ]; then
+    mkdir ${SNAP_DATA}/log
+fi
+export PATH=$SNAP/bin:$PATH
+
+exec ${SNAP}/bin/barrel_http $@
